@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Días de Escalada</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Días de Escalada</h1>
+        <a href="{% url 'day_new' %}" class="btn btn-primary mb-3">Nuevo Día</a>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Comentario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in days %}
+                    <tr>
+                        <td>{{ day.date }}</td>
+                        <td>{{ day.comment }}</td>
+                        <td>
+                            <a href="{% url 'day_edit' day.pk %}" class="btn btn-sm btn-info mr-2">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a href="{% url 'day_delete' day.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?');">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3" class="text-center">No hay días registrados.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>{% if object %}Editar Día{% else %}Nuevo Día{% endif %}</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-3">{% if object %}Editar Día{% else %}Nuevo Día{% endif %}</h2>
+
+        <form method="post" class="mb-3">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+
+        <a href="{% url 'day_list' %}" class="btn btn-secondary">Volver a la lista de días</a>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+
